@@ -39,7 +39,6 @@ cartRouter.put('/:Cid', async (req, res) =>{
     const selectedCart = await cartModel.findById(Cid);
     newProducts.map((newProduct) =>{
     const index = selectedCart.products.findIndex(product => product.id_prod._id.toString() === newProduct)
-        console.log("EL INDICE", index)
      if(index !== -1){
         selectedCart.products[index].quantity++;
     }
@@ -58,19 +57,16 @@ cartRouter.put('/:Cid', async (req, res) =>{
    }
 })
 
-
-
-
 cartRouter.put('/:Cid/products/:Pid', async (req, res) =>{
     const { Cid, Pid } = req.params;
     const { quantity } = req.body;
-    
     try {
         const cart = await cartModel.findById(Cid)
         if (cart) {
             const product = await productModel.findById(Pid) 
             if (product) {
-                const indice = cart.products.findIndex(item => item.id_prod == Pid)
+                const indice = cart.products.findIndex(item => item.id_prod._id == Pid)
+                console.log(indice)
                 if (indice != -1) {
                     cart.products[indice].quantity = quantity 
                 } else {
@@ -104,6 +100,20 @@ cartRouter.delete('/:Cid/products/:Pid', async(req,res)=>{
     catch(error){
         res.status(400).send({respuesta: "Error", mensaje: "Error eliminando el producto"})
     }
-    
+})
+
+cartRouter.delete('/:Cid', async (req, res) =>{
+    const { Cid }= req.params;
+
+    try{
+        const selectedCart = await cartModel.findById(Cid);
+        selectedCart.products = [];
+        await cartModel.findByIdAndUpdate(Cid, selectedCart)
+        res.status(200).send({respuesta: "Ok", mensaje: selectedCart.products})
+    }
+    catch(error){
+        res.status(400).send({respuesta: "Error", mensaje: "Error al vaciar el carrito"})
+
+    }
 })
 export default cartRouter;

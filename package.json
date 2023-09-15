@@ -1,0 +1,26 @@
+{
+  "type": "module",
+  "name": "preentrega1_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "D": "^1.0.0",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "mongodb": "^6.0.0",
+    "mongoose": "^7.5.1",
+    "mongoose-paginate-v2": "^1.7.31",
+    "socket.io": "^4.7.2",
+    "sweetalert2": "^11.7.27"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

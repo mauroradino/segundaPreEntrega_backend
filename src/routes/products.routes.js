@@ -6,7 +6,7 @@ const productRouter = Router()
 productRouter.get('/:limit?/:page?/:sort?/:query?', async(req, res)=>{
      let { limit, page, sort, query } = req.params;
      let queryIn;
-     limit === undefined ? limit = 10: null
+     limit === undefined ? limit = 10 : null
      page === undefined ? page = 1: null
      sort === "asc" ? sort = 1 : sort === "desc" ? sort = -1 :null
      if(query !== undefined){
